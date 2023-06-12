@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block body %}
+    {% if role==true %}
+            <button class="project-edit bg-violet-600 text-white rounded m-6 py-1 px-2">
+                Add Project
+            </button>
+            <div class="flex flex-row justify-center">
+                <div class="project-modal invisible fixed z-50 top-20 flex flex-col items-center max-w-lg gap-4 p-6 rounded-md shadow-md sm:py-8 sm:px-12 bg-[#242B2E] text-white">
+                    <button class="close-modal absolute top-2 right-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor" class="flex-shrink-0 w-6 h-6">
+                            <polygon points="427.314 107.313 404.686 84.687 256 233.373 107.314 84.687 84.686 107.313 233.373 256 84.686 404.687 107.314 427.313 256 278.627 404.686 427.313 427.314 404.687 278.627 256 427.314 107.313"></polygon>
+                        </svg>
+                    </button>
+                    
+                    <h2 class="text-2xl font-semibold leading-tight tracking-wide">Project Details</h2>
+                    <form action="/projectupload" method="POST" enctype="multipart/form-data">
+                        <div class="mb-2 flex flex-col justify-center">
+                            <label class="text-violet-600 text-lg font-bold" for="project-title">Project Title</label>
+                            <input type="text" class="input input-bordered border-black w-full max-w-xs p-2 text-black" id="project-title" name="title" placeholder="project title">
+                        </div>
+                        <div class="mb-2 flex flex-col justify-center">
+                            <label class="text-violet-600 text-lg font-bold" for="project-title">Project Source Code</label>
+                            <input type="text" class="input input-bordered border-black w-full max-w-xs p-2 text-black" id="project-title" name="sourcecode" placeholder="source code link">
+                        </div>
+                        <div class="mb-2 flex flex-col justify-center">
+                            <label class="text-violet-600 text-lg font-bold" for="project-title">Project Live Link</label>
+                            <input type="text" class="input input-bordered border-black w-full max-w-xs p-2 text-black" id="project-title" name="link" placeholder="live link url">
+                        </div>
+                        <button type="submit" class="px-8 py-3 font-semibold rounded-full bg-violet-400 text-white">Upload Project</button>
+                    </form>
+                    
+                </div>
+            </div>
+            
+    {% endif %}
+
+    <div class="m-4 flex flex-row flex-wrap gap-2">
+        
+        {% for project in projects %}
+
+        <div class="rounded-md shadow-md sm:w-96 bg-gray-800 text-gray-100">
+            <div class="flex items-center justify-center p-3">
+                {{project.title}}
+            </div>
+            <div>
+                <img src="https://source.unsplash.com/301x301/?programming" alt="" class="object-cover object-center w-full h-72 dark:bg-gray-500">
+
+            </div>
+            <div class="p-3">
+                <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center space-x-3">
+                        <a href="/project/{{project.id}}/like">
+                            <button type="button" title="Like post" class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="w-5 h-5 fill-current">
+                                    <path d="M453.122,79.012a128,128,0,0,0-181.087.068l-15.511,15.7L241.142,79.114l-.1-.1a128,128,0,0,0-181.02,0l-6.91,6.91a128,128,0,0,0,0,181.019L235.485,449.314l20.595,21.578.491-.492.533.533L276.4,450.574,460.032,266.94a128.147,128.147,0,0,0,0-181.019ZM437.4,244.313,256.571,425.146,75.738,244.313a96,96,0,0,1,0-135.764l6.911-6.91a96,96,0,0,1,135.713-.051l38.093,38.787,38.274-38.736a96,96,0,0,1,135.765,0l6.91,6.909A96.11,96.11,0,0,1,437.4,244.313Z"></path>
+                                </svg>
+                            </button>
+                        </a>
+                        <div>
+                            {{project.likes}}
+                        </div>
+                    </div>
+                    <a href="/project/{{project.id}}/allcomments">
+                        <button class="see-comments-btn rounded px-2 py-1 bg-[#FF6263] text-white">See All Comments</button>
+                    </a>
+                     
+                </div>
+                <div class="flex flex-wrap items-center pt-3 pb-1">
+                    
+                </div>
+                <div class="space-y-3">
+                    <form action="/project/{{project.id}}/comment" method="POST">
+                        <input type="text" name="comment" placeholder="Add a comment..." class="comment-box w-full px-2 py-2 dark:bg-transparent border-none rounded text-sm text-black">
+                        <div class="flex justify-center">
+                            <button type="submit" class="add-comment m-1 rounded px-2 py-1 bg-violet-600 text-white">Add Comment</button>
+                        </div>
+                    </form> 
+                </div>
+            </div>
+        </div>
+        
+        {% endfor %}
+        
+    </div>
+{% endblock body %}

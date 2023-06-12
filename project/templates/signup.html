@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- component -->
+
+    <div class="bg-grey-lighter min-h-screen flex flex-col">
+      {% with messages=get_flashed_messages()%}
+      {% if messages %}
+      <div class="container alert alert-warning bg-violet-600 text-white text-align-center shadow-lg">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+          <span>{{ messages[0] }}. Go to <a href="{{ url_for('auth.login') }}">login page</a>.</span>
+        </div>
+      </div>
+      {% endif %}
+      {% endwith %}
+      <form action="/signup" method="POST">
+        <div
+          class="container max-w-sm mx-auto flex-1 flex flex-col items-center justify-center px-2"
+        >
+          <div class="bg-white px-6 py-8 rounded shadow-md text-black w-full">
+            <h1 class="mb-8 text-3xl text-center">Sign up</h1>
+            <input
+              type="text"
+              class="block border border-grey-light w-full p-3 rounded mb-4"
+              name="name"
+              placeholder="Full Name"
+            />
+
+            <input
+              type="text"
+              class="block border border-grey-light w-full p-3 rounded mb-4"
+              name="email"
+              placeholder="Email"
+            />
+
+            <input
+              type="password"
+              class="block border border-grey-light w-full p-3 rounded mb-4"
+              name="password"
+              placeholder="Password"
+            />
+            <button
+              type="submit"
+              class="w-full text-center py-3 rounded bg-violet-400 text-white hover:bg-green-dark focus:outline-none my-1"
+            >
+              Create Account
+            </button>
+
+            <div class="text-center text-sm text-grey-dark mt-4">
+              By signing up, you agree to the
+              <a
+                class="no-underline border-b border-grey-dark text-violet-400"
+                href="#"
+              >
+                Terms of Service
+              </a>
+              and
+              <a
+                class="no-underline border-b border-grey-dark text-violet-400"
+                href="#"
+              >
+                Privacy Policy
+              </a>
+            </div>
+          </div>
+
+          <div class="text-grey-dark mt-6">
+            Already have an account?
+            <a class="no-underline border-b border-blue text-blue" href="/">
+              Log in </a
+            >.
+          </div>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

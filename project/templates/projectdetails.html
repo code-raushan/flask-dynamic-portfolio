@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block body %}
+    <div class=" m-2 p-4 flex justify-start">
+        <a href="/project">
+            <button class="rounded px-2 py-1 bg-violet-600 text-white underline underline-offset-6">
+                Back to Projects
+            </button>
+        </a>
+    </div>
+    <div class="flex flex-row justify-center text-xl font-semibold ">{{project.title}}</div>
+    <div class="h-[40%] wi border-gray-300  flex flex-col items-center">
+        <div class="p-2 h-[80%]">
+            <img src="https://source.unsplash.com/250x250/?programming" alt="" class="h-full">
+        </div>
+        <div class="text-violet-600 p-4"> Likes {{project.likes}}</div>
+        <div class="flex flex-row gap-3">
+            
+            <button class="px-2 rounded-sm py-1 bg-[#FF6263] text-white ">
+                <a href=""> Live Link</a>
+            </button>
+            <button class="px-2 py-1 rounded-sm bg-violet-600 text-white ">
+                <a href="">Source Code</a>
+            </button>
+        </div>
+    </div>
+    <div class="m-6 flex flex-col justify-center items-center">
+        <div class="underline underline-offset-8">Comments</div>
+        <div class="list-none">
+            {% for comment in comments_list %}
+                <li class="m-4 text-decoration-none"><span class="text-violet-600">{{comment.author}}</span> &nbsp;  &nbsp; <span class="px-2 py-1 rounded bg-violet-600 text-white">{{comment.content}}</span></li>
+            {% endfor %}
+        </div>
+    </div>
+    
+{% endblock body %}
